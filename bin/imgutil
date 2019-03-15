@@ -1,0 +1,19 @@
+#!/usr/bin/env node
+
+var program = require('commander');
+var ImgUtilServer = require('../dist/ImgUtilServer.js');
+var TinyPng = require('../dist/processor/TinyPng.js');
+program
+  .version('1.0.0')
+  .option('-p, --port [number]', 'use port','9999')
+  .parse(process.argv);
+ 
+var server = new ImgUtilServer.default(program.port);
+var tinypng = new TinyPng.default(
+  [
+    "Ax7hsXHJj2TYy2mN82rVozNUSfMcuEJX",
+    "76D9LDLthfBGZbn92NDrFQ885f4Rsh9k",
+    "sNB0d4nRvh0Vs0yY5MP79njJjZrMyLvq",
+    "nqb0kKydv960Gbrr1X0CTC5fWGsZXzSz"
+  ]);
+server.registerType(ImgUtilServer.UtilType.TinyPng,tinypng);

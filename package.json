@@ -1,0 +1,39 @@
+{
+  "name": "ttimg",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "nyc -e .ts --all mocha --require ts-node/register test/**/*.ts",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/w2moon/imgutil.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/w2moon/imgutil/issues"
+  },
+  "homepage": "https://github.com/w2moon/imgutil#readme",
+  "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.6",
+    "@types/node": "^11.11.3",
+    "chai": "^4.2.0",
+    "mocha": "^6.0.2",
+    "nyc": "^13.3.0",
+    "ts-node": "^8.0.3",
+    "typescript": "^3.3.3333"
+  },
+  "dependencies": {
+    "@types/uuid": "^3.4.4",
+    "commander": "^2.19.0",
+    "md5storage": "^1.0.2",
+    "remotefile": "^1.0.1",
+    "tinify": "^1.6.0-beta.2",
+    "uuid": "^3.3.2"
+  }
+}
