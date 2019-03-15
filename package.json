@@ -1,11 +1,14 @@
 {
   "name": "ttimg",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
     "test": "nyc -e .ts --all mocha --require ts-node/register test/**/*.ts",
     "build": "tsc"
+  },
+  "bin":{
+    "ttimg":"./bin/ttimg"
   },
   "repository": {
     "type": "git",
