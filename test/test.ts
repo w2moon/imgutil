@@ -2,9 +2,9 @@
 
 import { expect } from "chai";
 
-import ImgUtilClient from "../src/ImgUtilClient";
-import ImgUtilServer, { UtilType } from "../src/ImgUtilServer";
-import TinyPng from "../src/processor/TinyPng";
+import {ImgUtilClient} from "../src/ImgUtilClient";
+import {ImgUtilServer,  UtilType } from "../src/ImgUtilServer";
+import {TinyPng} from "../src/processor/TinyPng";
 const PORT = 9999;
 describe("测试",()=>{
 
@@ -18,6 +18,8 @@ describe("测试",()=>{
             let client = new ImgUtilClient(`http://127.0.0.1:${PORT}`);
             let info = await client.tinypng("./test/test.png");
             expect(info.err).equal("");
+
+            server.close();
         },1000);
     });
 
