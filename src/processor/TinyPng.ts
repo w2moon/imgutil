@@ -11,8 +11,7 @@ interface TinyPngParams extends ImgUtilParams{
 
 }
 
-
-export default class TinyPng{
+export  class TinyPng{
     private keys:string[] = [];
     private curKeyIndex:number = 0;
     private storage:MD5Storage;

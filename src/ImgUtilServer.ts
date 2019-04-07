@@ -10,7 +10,7 @@ export enum UtilType{
 interface Processor{
      process(files:rf.FileDict,params:ImgUtilParams):Promise<rf.RemoteFileResInfo>;
 }
-export default class ImgUtilServer{
+export class ImgUtilServer{
     private server:rf.RemoteFileServer;
     private processor:Processor[];
     constructor(port:number,uploadFolder:string = "upload/"){
@@ -28,5 +28,9 @@ export default class ImgUtilServer{
             throw `need init type ${params.type}`;
         }
         return await this.processor[params.type].process(files,params);
+    }
+
+    close(){
+        this.server.close();
     }
 }
