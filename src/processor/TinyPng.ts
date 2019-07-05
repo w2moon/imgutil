@@ -15,10 +15,12 @@ export  class TinyPng{
     private keys:string[] = [];
     private curKeyIndex:number = 0;
     private storage:MD5Storage;
+    private waitQueue:(()=>void)[];
     constructor(keys:string[],folder:string = "tinypng"){
         this.storage = new MD5Storage(folder);
         this.keys = keys;
         tinify.key = this.keys[0];
+        this.waitQueue = [];
     }
     private changeKey(){
         this.curKeyIndex = (this.curKeyIndex+1)%this.keys.length;
@@ -81,6 +83,27 @@ export  class TinyPng{
        this.storage.saveOther(file,tempFile);
        return tempFile;
     }
+    next(){
+       const func = this.waitQueue.shift();
+       func(); 
+    }
+
+    async add(file:string){
+        return new Promise<string>(resolve=>{
+            let isFirst = false;
+            if(this.waitQueue.length === 0){
+                isFirst = true;
+            }
+            this.waitQueue.push(async ()=>{
+                resolve(await this.processFile(file));
+            });
+            if(isFirst){
+                this.next();
+
+            }
+        })
+        
+    }
 
     async process(files:rf.FileDict,params:ImgUtilParams):Promise<rf.RemoteFileResInfo>{
         let info:rf.RemoteFileResInfo = {
@@ -89,7 +112,7 @@ export  class TinyPng{
         }
         for(let fieldname in files){
             try{
-                let file = await this.processFile(files[fieldname]);
+                let file = await this.add(files[fieldname]);
                 if(file){
                     info.files[fieldname] = file;
                 }
