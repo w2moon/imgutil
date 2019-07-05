@@ -62,12 +62,12 @@ export  class TinyPng{
         }
         return newpath;
     }
-    async processFile(file:string){
+    async processFile(file:string,toFile?:string){
         let md5path = this.storage.getValidPath(file);
        if(md5path){
            return md5path;
        }
-       let tempFile = this.getFileName(file);
+       let tempFile = toFile || this.getFileName(file);
        let retryNum = 0;
        try{
             while(!await this._processFile(file,tempFile,retryNum)){
