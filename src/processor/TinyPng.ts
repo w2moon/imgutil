@@ -3,7 +3,7 @@ import { ImgUtilParams } from "../ImgUtilServer";
 import tinify from "tinify";
 import uuidv1 from "uuid/v1";
 import path from "path";
-import fs from "fs";
+import fs, { copyFile } from "fs";
 
 import {MD5Storage} from "md5storage";
 
@@ -67,6 +67,9 @@ export  class TinyPng{
     async processFile(file:string,toFile?:string){
         let md5path = this.storage.getValidPath(file);
        if(md5path){
+           if(toFile){
+              fs.writeFileSync(toFile,fs.readFileSync(md5path));
+           }
            return md5path;
        }
        let tempFile = toFile || this.getFileName(file);
